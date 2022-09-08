@@ -1,9 +1,13 @@
 const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
+const path = require('path');
 
 const port = 6969;
-const server = http.createServer(express);
+const app = express();
+app.use(express.static(path.join(__dirname, '/static')));
+
+const server = http.createServer(app);
 const wss = new WebSocket.Server({ server })
 
 wss.on('connection', function connection(ws) {
